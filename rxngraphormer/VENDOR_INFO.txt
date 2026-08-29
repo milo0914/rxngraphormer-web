@@ -1,0 +1,27 @@
+﻿RXNGraphormer - vendored third-party source
+===========================================
+
+upstream_repo   : https://github.com/licheng-xu-echo/RXNGraphormer
+upstream_branch : pytorch2
+upstream_commit : ab6d13d1900a2a3125df24dc798ffa8a6cc6761d
+commit_date     : 2026-08-24 00:35:48 +0000
+commit_subject  : update: save meta results for sequence generation
+vendored_on     : 2026-08-29 (story US-003)
+vendored_by     : git clone --depth 1 --branch pytorch2 <upstream_repo> rxngraphormer && rm -rf rxngraphormer/.git
+license         : MIT (see ./LICENSE, (c) Li-Cheng Xu et al.)
+paper           : Xu, LC., Tang, MJ., An, J. et al. "A unified pre-trained deep learning framework for
+                  cross-task reaction performance prediction and synthesis planning."
+                  Nat. Mach. Intell. 2025, 7, 1561. https://www.nature.com/articles/s42256-025-01098-4
+
+Reference commit of the paper/PyTorch-1 branch (NOT vendored):
+    main @ 0387656ea219b5526952ebd9828c9dba5bf8d689 (2026-06-25)
+
+Why the pytorch2 branch: the upstream README states "PyTorch 2 version (pytorch2 branch) is
+recommended, which continues to be actively developed", and this project runs on CPU-only
+PyTorch 2.x. The model definitions are byte-identical between the two branches
+(md5 rxngraphormer/model.py = 1eb1f87ea055b2451bf186a749325628,
+ md5 rxngraphormer/layer.py = 72472c1fe7906665e2e641e97a3e35f2 on both commits),
+so published checkpoints (state_dicts) stay loadable.
+
+DO NOT edit files in this directory unless a local patch is unavoidable; if a patch is
+required, record it in ../PROJECT_NOTES.md so the delta versus upstream stays auditable.
