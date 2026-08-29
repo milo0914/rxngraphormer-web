@@ -203,3 +203,26 @@ valid JSON, and that repo URL + commit are recorded in `PROJECT_NOTES.md` and `r
   `results/` — handy: dropping checkpoints/datasets inside `rxngraphormer/model_path/…` won't be committed.
   This repo's root `.gitignore` additionally ignores `models/`, `*.7z`, `__pycache__/`, `venv/`, `.env`.
 * Never create `.github/workflows/*` in this repo (the available PAT lacks the `workflow` scope).
+
+## Fine-tuned checkpoints — forward/retro mapping (US-004, 2026-08-29)
+
+Downloaded from figshare article 30498368 (API: https://api.figshare.com/v2/articles/30498368), MD5-verified against the figshare manifest:
+
+- `models/seq-v2-USPTO_STEREO-20250423_044122_ft.7z` (id 59201303, md5 163e5a48e4f845eec5e5afd07b00026d)
+- `models/seq-v2-USPTO_STEREO-20250509_070206_ft.7z` (id 59201306, md5 52d506a2ecee0c77cad7de03c692f653)
+- `data/Test_Dataset.7z` (id 59201294, md5 1d5fcebb2ae10e657180eed52188c9d9) → extracted to `data/Test/`
+
+**Conclusion: BOTH fine-tuned checkpoints are FORWARD-PREDICTION models.** Each
+checkpoint's `parameters.json` has `model.task="forward_prediction"` and
+`data.data_path="./dataset/USPTO_STEREO"`. Per the framework eval-config mapping
+(`uspto_stereo`→FORWARD, `uspto_50k`/`uspto_full`→RETRO), "USPTO_STEREO" = forward.
+Checkpoint `20250509` is a continuation training of `20250423` (its training config
+`resume_path` points at the `20250423` checkpoint), i.e. a later forward model, NOT a
+retro model.
+
+The framework builds the SAME `sequence_generation` architecture for both
+`forward-synthesis` and `retro-synthesis` (task_type is inference-time only), but the
+released WEIGHTS are forward-trained, so they cannot correctly serve retrosynthesis.
+A retro-trained checkpoint (USPTO_50k / USPTO_full) is NOT present among the figshare
+fine-tuned releases. => **US-007 (retrosynthesis) is BLOCKED until a retro checkpoint
+is sourced/trained.** See MODELS.md for full detail and the recommended mapping.
