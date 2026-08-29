@@ -1,0 +1,6 @@
+models/
+__pycache__/
+*.7z
+venv/
+.env
+credentials.yaml
