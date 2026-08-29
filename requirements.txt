@@ -5,3 +5,14 @@ pandas==2.2.3
 rdkit-pypi==2022.9.5
 scikit-learn==1.5.2
 torch==2.1.2+cpu
+
+# --- RXNGraphormer framework-specific deps (US-005) ---
+# Needed to import the vendored framework and LOAD a checkpoint on CPU.
+# torch_geometric / torch_scatter were installed from the PyG CPU index:
+#   /app/venv/bin/pip install torch-scatter torch-geometric \
+#       -f https://data.pyg.org/whl/torch-2.1.2+cpu.html
+python-box==7.4.1
+tqdm==4.70.0
+torch-geometric==2.8.0.post1
+torch-scatter==2.1.2+pt21cpu
+OpenNMT-py==1.2.0
