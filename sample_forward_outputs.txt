@@ -1,0 +1,33 @@
+### Example 1
+Reactants: COCc1cccc(-c2cc3c(c4c2OP(=O)(O)Oc2c(-c5cccc(COC)c5)cc5c(c2-4)CCCC5)CCCC3)c1.O=C(/N=C/c1ccccc1)c1ccccc1.Sc1ccccc1
+  Top-1: O=C(NC(c1ccccc1)c1ccccc1)c1ccccc1  (score=-0.5341)
+
+### Example 2
+Reactants: FC(F)(F)c1ccsc1.[CH2]C(F)(F)F
+  Top-1: FC(F)(F)c1ccsc1  (score=-0.6145)
+  Top-2: FC(F)(F)c1sc1  (score=-9.4676)
+  Top-3: FC(F)(F)c1ccn1  (score=-10.1983)
+  Top-4: FC(F)(F)F  (score=-15.3783)
+
+### Example 3
+Reactants: CC(C)c1cc(C(C)C)c(-c2ccccc2P(C2CCCCC2)C2CCCCC2)c(C(C)C)c1.CN(C)C(=NC(C)(C)C)N(C)C.Cc1ccc(N)cc1.FC(F)(F)c1ccc(I)cc1.c1ccc(-c2ccon2)cc1
+  Top-1: FC(F)(F)c1ccc(-c2cc(-c3ccccc3)no2)cc1  (score=-0.9034)
+  Top-2: FC(F)(F)c1ccc(Nc2cc(-c3ccccc3)no2)cc1  (score=-1.0356)
+  Top-3: Cc1ccc(Nc2ccc(C(F)(F)F)cc2)cc1  (score=-1.5491)
+  Top-4: Nc1ccc(-c2cc(-c3ccccc3)no2)cc1  (score=-5.3744)
+  Top-5: Nc1ccccc1-c1cc(-c2ccccc2)no1  (score=-5.8621)
+
+### Example 4
+Reactants: CC(C)c1cc(C(C)C)c(-c2ccccc2P(C(C)(C)C)C(C)(C)C)c(C(C)C)c1.CCN=P(N=P(N(C)C)(N(C)C)N(C)C)(N(C)C)N(C)C.CCOC(=O)c1cc(C)on1.Cc1ccc(N)cc1.FC(F)(F)c1ccc(I)cc1
+  Top-1: Cc1ccc(NC(=O)c2cc(C)on2)cc1  (score=-0.0899)
+  Top-2: Cc1on1  (score=-5.4698)
+  Top-3: CC(=O)c1cc(C)c1  (score=-8.8147)
+
+### Example 5
+Reactants: C1CCOC1.CC(=O)[O-].CC(=O)[O-].CC1(C)c2cccc(P(c3ccccc3)c3ccccc3)c2Oc2c(P(c3ccccc3)c3ccccc3)cccc21.CCN(CC)CC.Cc1ccc2c(cnn2C2CCCCO2)c1[B-](F)(F)F.O=S(=O)(Oc1ccc2ncccc2c1)C(F)(F)F.[K+].[Pd+2]
+  Top-1: Cc1ccc2c(cnn2C2CCCCO2)c1-c1ccc2ncccc2c1  (score=-0.0004)
+  Top-2: Cc1ccc2c(cnn2C2CCCCO2)c1C1=CCc2ncccc2C1  (score=-9.7308)
+  Top-3: Cc1ccc2c(cnn2C2CCCCO2)c1-c1cccc2ncccc12  (score=-11.1375)
+  Top-4: Cc1cccc2c(-c3ccc4ncccc4c3)cccc2C1  (score=-12.1080)
+
+[SUMMARY] examples=5 beam_candidates=50 valid_reported=17 all_valid=True
