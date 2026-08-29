@@ -1,0 +1,11 @@
+﻿# Base ML environment for RXNGraphormer (US-002)
+# CPU-only torch is REQUIRED (no GPU). Install with the separate CPU index:
+#   pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cpu
+# numpy is pinned to 1.26.x because torch 2.1.2 was built against NumPy 1.x;
+# NumPy 2.x breaks torch's NumPy bridge (torch.from_numpy) with a hard warning.
+# pandas/scikit-learn are pinned to the last NumPy-1.26-compatible releases.
+torch==2.1.2+cpu
+numpy==1.26.4
+rdkit-pypi==2022.9.5
+pandas==2.2.3
+scikit-learn==1.5.2
