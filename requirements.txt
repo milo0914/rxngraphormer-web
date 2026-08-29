@@ -1,0 +1,7 @@
+﻿# CPU-only torch: install with: pip install torch --index-url https://download.pytorch.org/whl/cpu
+# (this venv installs into a shared target dir; use /app/venv/bin/pip and /app/venv/bin/python)
+numpy==1.26.4
+pandas==2.2.3
+rdkit-pypi==2022.9.5
+scikit-learn==1.5.2
+torch==2.1.2+cpu
