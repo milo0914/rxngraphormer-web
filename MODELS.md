@@ -84,12 +84,72 @@ article are *datasets*, not trained checkpoints).
 | Use case | Checkpoint to use | Status |
 |---|---|---|
 | Forward prediction (US-006) | `models/seq-v2-USPTO_STEREO-20250423_044122_ft` (base) **or** `...20250509_070206_ft` (later) | ✅ available |
-| Retrosynthesis (US-007) | retro-trained `USPTO_50k`/`USPTO_full` checkpoint | ⚠️ **NOT in this figshare article** — blocked until a retro checkpoint is sourced/trained |
+| Retrosynthesis (US-007) | retro-trained `USPTO_50k` checkpoint (`models/USPTO_50k`, from figshare **28356077**) | ✅ available — see US-007 addendum below |
 
 **Recommendation:** For US-006 use checkpoint B (`20250509`, the more recent
-fine-tune) as the default forward model. US-007 (retrosynthesis) is currently
-**blocked** on obtaining a retro-trained checkpoint; flag this to the controller
-before starting US-007.
+fine-tune) as the default forward model. US-007 (retrosynthesis) is **UNBLOCKED**:
+a genuine retro-trained checkpoint was found in the original author's figshare
+article **28356077** (not the reproduction article 30498368, which only has the
+two forward `_ft` checkpoints). See the US-007 addendum below.
+
+---
+
+## Retrosynthesis checkpoint — US-007 addendum (figshare article 28356077)
+
+The reproduction article **30498368** only ships forward `_ft` checkpoints (see
+"Forward vs Retrosynthesis" above). However, the **original author's** figshare
+article **28356077** ("Preprocessed datasets and model weights for RXNGraphormer",
+`https://doi.org/10.6084/m9.figshare.28356077`) ships the *actually trained*
+backbone model weights referenced by the repo's `model_path/README.md`, including
+**retrosynthesis** checkpoints. An exhaustive public search (GitHub repo
+`model_path/` listing, the `v1.0.0` release — which has **empty assets**, GitHub
+code/repo search for "RXNGraphormer retro" → 0 hits, HuggingFace model search →
+empty) found **no other public retro weights**; 28356077 is the canonical source.
+
+### Downloaded retro checkpoint
+| Checkpoint (file) | figshare id | Size (bytes) | MD5 (figshare) | MD5 (verified) | Task |
+|---|---|---|---|---|---|
+| `USPTO_50k_model.zip` | 53998184 | 197722944 | `1d993b40b8ff38def31788c1ced69de5` | `1d993b40b8ff38def31788c1ced69de5` | ✅ PASS — **retrosynthesis** |
+| `USPTO_full_model.zip` *(alternative retro ckpt, not downloaded)* | 53995949 | 199742906 | `a00bb7e0d5aea3a809953b955acd9b57` | — | retrosynthesis |
+
+`USPTO_50k_model.zip` was downloaded, MD5-verified, and extracted to
+`models/USPTO_50k/` (`parameters.json` + `model/valid_checkpoint.pt`). The
+checkpoint's own `parameters.json` declares **`model.task = "retrosynthesis"`**
+(confirmed), `data.data_path = ./dataset/USPTO_50k`, `data.vocab_file =
+vocab_smiles.txt`. The decoder embedding weight is `(75, 256)` → the decoder
+vocabulary has **75 tokens**, matching `dataset/USPTO_50k/vocab_smiles.txt`
+(extracted from `USPTO_50k.zip`, id 53991908, MD5 `24af2c6510d72fface1933f042100801`,
+75 tokens, `token<TAB>count` format — identical to the USPTO_STEREO vocab format
+already used by US-006).
+
+### Local extracted layout
+```
+models/
+└── USPTO_50k/                                      # RETRO checkpoint (from figshare 28356077)
+    ├── parameters.json                             # model.task = "retrosynthesis"
+    └── model/
+        └── valid_checkpoint.pt                      # used by infer_retro.py
+dataset/
+└── USPTO_50k/
+    ├── vocab_smiles.txt                            # 75-token decoder vocab (COMMITTED)
+    └── sample_retro_products.txt                   # 5 in-vocab USPTO_50k test products (COMMITTED)
+```
+
+### Why this resolves US-007 (and why 30498368 could not)
+The framework builds one `sequence_generation` architecture and switches
+forward/retro purely via `task_type`; the *weights* decide what it was trained to
+do. The 30498368 `_ft` checkpoints have `model.task = "forward_prediction"`, so
+they cannot serve retro. The 28356077 `USPTO_50k_model.zip` has `model.task =
+"retrosynthesis"`, so feeding a **product** SMILES as src yields the predicted
+**precursor set** — a genuine retrosynthesis. `infer_retro.py` wraps exactly this
+(`task_type="retro-synthesis"`, `device='cpu'`), reusing the proven loader from
+US-006. Verified on 5 USPTO_50k test products: all 13 reported precursor-set
+candidates were RDKit-valid (see `sample_retro_outputs.txt`).
+
+> Note: the 28356077 `USPTO_STEREO_model.zip` / `USPTO_480k_model.zip` are
+> forward checkpoints (same role as the 30498368 `_ft` ones); only `USPTO_50k_*`
+> and `USPTO_full_*` are retro. `buchwald_hartwig` / `C_H_func` / `suzuki_miyaura`
+> / `thiol_addition` / `external_validation` are single-step task models.
 
 ## Reproduce
 See `scripts/download_checkpoints.sh` (uses `curl -C -` resume + `md5sum`
