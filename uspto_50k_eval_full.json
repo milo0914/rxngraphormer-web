@@ -1,0 +1,13 @@
+{
+    "trained_model_path": "/run/csi/mount-root/nas/4079184d856ecc166ed19d4887083405/workspaces/default/rxngraphormer-web/models/USPTO_50k",
+    "ckpt_file": "valid_checkpoint.pt",
+    "topk": 10,
+    "beam_size": 30,
+    "temperature": 3.0,
+    "n_best": 30,
+    "min_length": 1,
+    "max_length": 512,
+    "batch_size": 64,
+    "task": "sequence_generation",
+    "save_prediction": "/run/csi/mount-root/nas/4079184d856ecc166ed19d4887083405/workspaces/default/rxngraphormer-web/results_retro_full"
+}
