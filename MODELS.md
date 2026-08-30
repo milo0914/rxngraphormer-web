@@ -1,4 +1,4 @@
-# Fine-tuned Checkpoints (US-004)
+# Fine-tuned Checkpoints (US-004 + US-012)
 
 Source: figshare article **30498368** "RXNGraphormer Reproduction"
 API: `https://api.figshare.com/v2/articles/30498368`
@@ -9,7 +9,20 @@ All artifacts below are downloaded with `curl -L -C -` (resume-safe) and the
 > **Git hygiene:** `models/` and `*.7z` are listed in `.gitignore` and are
 > **NOT committed**. Only this file (`MODELS.md`), `PROJECT_NOTES.md`, and
 > `scripts/download_checkpoints.sh` are committed. The large binaries live on
-> disk only (they will later be mirrored to GitHub Releases in US-012).
+> disk only (mirrored to **GitHub Releases** in US-012).
+
+## GitHub Releases Mirror (US-012)
+
+Checkpoints are mirrored to GitHub Releases for faster, more reliable downloads:
+
+🔗 **Release:** https://github.com/milo0914/rxngraphormer-web/releases/tag/v1.0-weights
+
+| Asset | Task | Size | MD5 | Download URL |
+|---|---|---|---|---|
+| `forward-stereo-ft.7z` | Forward (USPTO_STEREO) | 391 MB | `52d506a2ecee0c77cad7de03c692f653` | `https://github.com/milo0914/rxngraphormer-web/releases/download/v1.0-weights/forward-stereo-ft.7z` |
+| `retro-uspto50k.7z` | Retrosynthesis (USPTO_50k) | 197 MB | `1d993b40b8ff38def31788c1ced69de5` | `https://github.com/milo0914/rxngraphormer-web/releases/download/v1.0-weights/retro-uspto50k.7z` |
+
+**Download scripts** (`backend/download_models.py`, `download_models.sh`) use GitHub Releases as primary source with figshare fallback.
 
 ## Fine-tuned checkpoints
 

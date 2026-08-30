@@ -53,7 +53,7 @@ CHECKPOINTS = {
         ],
         "github": {
             "asset_name": "forward-stereo-ft.7z",
-            "url_template": "https://github.com/{repo}/releases/download/v1.0.0/{asset}",
+            "url_template": "https://github.com/{repo}/releases/download/v1.0-weights/{asset}",
         },
         "figshare": {
             "file_id": 59201306,
@@ -71,7 +71,7 @@ CHECKPOINTS = {
         ],
         "github": {
             "asset_name": "retro-uspto50k.7z",
-            "url_template": "https://github.com/{repo}/releases/download/v1.0.0/{asset}",
+            "url_template": "https://github.com/{repo}/releases/download/v1.0-weights/{asset}",
         },
         "figshare": {
             "file_id": 53998184,
