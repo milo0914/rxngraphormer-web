@@ -223,6 +223,17 @@ retro model.
 The framework builds the SAME `sequence_generation` architecture for both
 `forward-synthesis` and `retro-synthesis` (task_type is inference-time only), but the
 released WEIGHTS are forward-trained, so they cannot correctly serve retrosynthesis.
-A retro-trained checkpoint (USPTO_50k / USPTO_full) is NOT present among the figshare
-fine-tuned releases. => **US-007 (retrosynthesis) is BLOCKED until a retro checkpoint
-is sourced/trained.** See MODELS.md for full detail and the recommended mapping.
+
+**Correction (US-007, 2026-08-29):** the retro-trained checkpoint IS publicly available —
+just in the **original author's** figshare article **28356077** (`10.6084/m9.figshare.28356077`,
+"Preprocessed datasets and model weights"), NOT the reproduction article 30498368. The
+`model_path/README.md` in the repo points at exactly this article for `USPTO_50k_model.zip`
+and `USPTO_full_model.zip`. `USPTO_50k_model.zip` (id 53998184, md5
+`1d993b40b8ff38def31788c1ced69de5`) was downloaded, MD5-verified, extracted to
+`models/USPTO_50k/`, and its `parameters.json` confirmed `model.task="retrosynthesis"`
+(decoder embedding `(75,256)` matches the 75-token `dataset/USPTO_50k/vocab_smiles.txt`).
+=> **US-007 (retrosynthesis) is UNBLOCKED and reproduced** via `infer_retro.py` (product
+SMILES → top-k precursor sets), all outputs RDKit-valid on 5 USPTO_50k test products.
+The reproduction article 30498368 still only has the two forward `_ft` checkpoints; the
+retro weights come from 28356077. See the "Retrosynthesis checkpoint — US-007 addendum"
+section in MODELS.md for the full table and layout.

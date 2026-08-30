@@ -1,0 +1,29 @@
+### Example 1
+Product: CC(=O)c1ccc2c(ccn2C(=O)OC(C)(C)C)c1
+  Top-1: CC(=O)c1ccc2[nH]ccc2c1.CC(C)(C)OC(=O)OC(=O)OC(C)(C)C  (score=-0.0139)
+  Top-2: CC(=O)Cl.CC(=O)c1ccc2[nH]ccc2c1  (score=-4.3724)
+  Top-3: CC(=O)c1ccc2[nH]ccc2c1.CC(C)(C)OC(=O)I  (score=-9.3235)
+
+### Example 2
+Product: Cc1ccc(S(=O)(=O)O[C@@H]2CN(C(=O)OC(C)(C)C)[C@@H]3[C@@H](O)CO[C@@H]32)cc1
+  Top-1: Cc1ccc(S(=O)(=O)O[C@@H]2CN(C(=O)OC(C)(C)C)[C@H]3[C@@H](OCc4ccccc4)CO[C@H]23)cc1  (score=-0.4563)
+  Top-2: Cc1ccc(S(=O)(=O)O[C@@H]2CN(C(=O)OC(C)(C)C)[C@H]3[C@H](OCc4ccccc4)CO[C@H]23)cc1  (score=-1.6773)
+  Top-3: Cc1ccc(S(=O)(=O)O[C@@H]2CN(C(=O)OC(C)(C)C)[C@@H]3[C@H](OCc4ccccc4)CO[C@H]23)cc1  (score=-2.3556)
+
+### Example 3
+Product: CCOC(=O)c1nn(-c2ccc(Cl)cc2Cl)c(-c2ccc(OC)cc2)c1CBr
+  Top-1: CCOC(=O)c1nn(-c2ccc(Cl)cc2Cl)c(-c2ccc(OC)cc2)c1C.O=C1CCC(=O)N1Br  (score=-0.0000)
+  Top-2: C=C(Br)Br.CCOC(=O)c1nn(-c2ccc(Cl)cc2Cl)c(-c2ccc(OC)cc2)c1CO  (score=-12.3113)
+  Top-3: CCO.CCOC(=O)c1nn(-c2ccc(Cl)cc2Cl)c(-c2ccc(OC)cc2)c1C  (score=-12.3739)
+  Top-4: CCOC(=O)c1nn(-c2ccc(Cl)cc2Cl)c(-c2ccc(OC)cc2)c1.O=C1CCC(=O)N1Br  (score=-13.7226)
+
+### Example 4
+Product: CC(C)(C)OC(=O)Nc1nc2c(-c3cccc([N+](=O)[O-])c3)cc(C#N)cc2s1
+  Top-1: CC(C)(C)OC(=O)Nc1nc2c(I)cc(C#N)cc2s1.O=[N+]([O-])c1cccc(B(O)O)c1  (score=-0.1769)
+  Top-2: CC(C)(C)OC(=O)Nc1nc2c(Br)nc12.O=[N+]([O-])c1cccc(B(O)O)c1  (score=-1.8522)
+
+### Example 5
+Product: O=C(NCc1ccccc1S(=O)(=O)C1CC1)C(F)(F)F
+  Top-1: NCc1ccccc1S(=O)(=O)C1CC1.O=C(OC(=O)C(F)(F)F)C(F)(F)F  (score=-0.1014)
+
+[SUMMARY] products=5 beam_candidates=25 valid_reported=13 all_valid=True
