@@ -1,5 +1,6 @@
 """Model loading utilities for RXNGraphormer checkpoints."""
 import json
+import logging
 import os
 import shutil
 import tempfile
@@ -14,6 +15,9 @@ from rxngraphormer.rxngraphormer.data import load_vocab, smi_tokenizer
 from rxngraphormer.rxngraphormer.eval import get_eval_dataloader
 from rxngraphormer.rxngraphormer.model import RXNGraphormer
 from rxngraphormer.rxngraphormer.utils import update_dict_key
+
+# ─── Logger ──────────────────────────────────────────────────────────────
+logger = logging.getLogger(__name__)
 
 
 # ─── Globals (set at startup) ─────────────────────────────────────────────
@@ -274,19 +278,25 @@ def forward_predict(
     
     Args:
         reactants: Reactant SMILES (dot-separated)
-        top_k: Number of predictions to return
-        beam_size: Beam width
+        top_k: Number of predictions to return (upper bound after validity filtering)
+        beam_size: Beam width (base value; internally scaled up for more candidates)
         temperature: Decoding temperature
         device: Device to run on
     
     Returns:
-        List of (product_smiles, score) tuples, score-ordered (highest first)
+        List of (product_smiles, score) tuples, score-ordered (highest first).
+        May contain more than top_k candidates before validity filtering.
     """
     model, vocab, vocab_rev = get_forward_model()
     
     # Canonicalize: keep only reactant side if ">>" present
     if ">>" in reactants:
         reactants = reactants.split(">>")[0].strip()
+    
+    # Increase internal beam size and n_best to generate more candidates
+    # before validity filtering. This ensures we can return up to top_k valid SMILES.
+    internal_beam_size = max(beam_size * 3, top_k * 5, 20)
+    internal_n_best = max(top_k * 5, 20)
     
     predictions = _run_inference(
         [reactants],
@@ -295,8 +305,8 @@ def forward_predict(
         _forward_vocab_path,
         _forward_model_dir,
         "forward-synthesis",
-        top_k=top_k,
-        beam_size=beam_size,
+        top_k=internal_n_best,
+        beam_size=internal_beam_size,
         temperature=temperature,
         device=device,
     )
@@ -315,19 +325,25 @@ def retro_predict(
     
     Args:
         product: Product SMILES
-        top_k: Number of predictions to return
-        beam_size: Beam width
+        top_k: Number of predictions to return (upper bound after validity filtering)
+        beam_size: Beam width (base value; internally scaled up for more candidates)
         temperature: Decoding temperature
         device: Device to run on
     
     Returns:
-        List of (precursor_set_smiles, score) tuples, score-ordered (highest first)
+        List of (precursor_set_smiles, score) tuples, score-ordered (highest first).
+        May contain more than top_k candidates before validity filtering.
     """
     model, vocab, vocab_rev = get_retro_model()
     
     # Canonicalize: keep only product side if ">>" present
     if ">>" in product:
         product = product.split(">>")[-1].strip()
+    
+    # Increase internal beam size and n_best to generate more candidates
+    # before validity filtering. This ensures we can return up to top_k valid SMILES.
+    internal_beam_size = max(beam_size * 3, top_k * 5, 20)
+    internal_n_best = max(top_k * 5, 20)
     
     predictions = _run_inference(
         [product],
@@ -336,8 +352,8 @@ def retro_predict(
         _retro_vocab_path,
         _retro_model_dir,
         "retro-synthesis",
-        top_k=top_k,
-        beam_size=beam_size,
+        top_k=internal_n_best,
+        beam_size=internal_beam_size,
         temperature=temperature,
         device=device,
     )
