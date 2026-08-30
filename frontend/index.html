@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RXNGraphormer Web</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <header>
+    <h1>RXNGraphormer Web</h1>
+    <p class="subtitle">AI-powered reaction prediction & retrosynthesis</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Prediction mode">
+    <button role="tab" id="tab-forward-btn" data-tab="forward" aria-selected="true" aria-controls="tab-forward">Forward Synthesis</button>
+    <button role="tab" id="tab-retro-btn" data-tab="retro" aria-selected="false" aria-controls="tab-retro">Retrosynthesis</button>
+  </nav>
+
+  <main>
+    <!-- Forward Synthesis Tab -->
+    <section id="tab-forward" role="tabpanel" aria-labelledby="tab-forward-btn">
+      <div class="input-area">
+        <label for="forward-smiles">Reactant SMILES</label>
+        <textarea id="forward-smiles" placeholder="CCO.CC(=O)O" rows="3" aria-describedby="forward-smiles-hint"></textarea>
+        <p id="forward-smiles-hint" class="hint">Enter reactants as dot-separated SMILES (e.g., CCO.CC(=O)O for ethanol + acetic acid)</p>
+        <div class="input-actions">
+          <button id="forward-draw" type="button" class="secondary">Draw in Ketcher</button>
+          <button id="forward-predict" type="button" class="primary">Predict</button>
+          <button id="forward-clear" type="button" class="secondary">Clear</button>
+        </div>
+        <div id="forward-error" class="error-message" aria-live="polite" hidden></div>
+      </div>
+      <div id="forward-loading" class="loading" hidden aria-live="polite">
+        <span class="spinner"></span> Running forward prediction...
+      </div>
+      <div id="forward-results" class="results-grid"></div>
+    </section>
+
+    <!-- Retrosynthesis Tab -->
+    <section id="tab-retro" role="tabpanel" aria-labelledby="tab-retro-btn" hidden>
+      <div class="input-area">
+        <label for="retro-smiles">Product SMILES</label>
+        <textarea id="retro-smiles" placeholder="CCOC(=O)CC" rows="3" aria-describedby="retro-smiles-hint"></textarea>
+        <p id="retro-smiles-hint" class="hint">Enter a product SMILES (e.g., CCOC(=O)CC for ethyl acetate)</p>
+        <div class="input-actions">
+          <button id="retro-draw" type="button" class="secondary">Draw in Ketcher</button>
+          <button id="retro-predict" type="button" class="primary">Predict</button>
+          <button id="retro-clear" type="button" class="secondary">Clear</button>
+        </div>
+        <div id="retro-error" class="error-message" aria-live="polite" hidden></div>
+      </div>
+      <div id="retro-loading" class="loading" hidden aria-live="polite">
+        <span class="spinner"></span> Running retrosynthesis...
+      </div>
+      <div id="retro-results" class="results-grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Powered by RXNGraphormer • <a href="https://github.com/milo0914/rxngraphormer-web" target="_blank" rel="noopener">GitHub</a></p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
