@@ -1,0 +1,28 @@
+﻿# Backend dependencies for RXNGraphormer Web API
+# Base ML environment (from US-002)
+torch==2.1.2+cpu
+rdkit-pypi==2022.9.5
+numpy==1.26.4
+pandas==2.2.3
+scikit-learn==1.5.2
+
+# Framework dependencies (from US-005)
+python-box==7.4.1
+tqdm==4.70.0
+torch-geometric==2.8.0.post1
+# torch-scarrow installed from PyG CPU index:
+# pip install torch-scatter==2.1.2+pt21cpu -f https://data.pyg.org/whl/torch-2.1.2+cpu.html
+torch-scatter==2.1.2+pt21cpu
+OpenNMT-py==1.2.0
+
+# FastAPI service dependencies
+fastapi==0.111.0
+uvicorn==0.30.5
+pydantic==2.8.2
+pydantic-settings==2.3.3
+python-multipart==0.0.9
+
+# Model downloading utilities
+requests==2.32.3
+py7zr==0.22.0
+tqdm==4.70.0
