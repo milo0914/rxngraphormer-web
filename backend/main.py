@@ -98,11 +98,27 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.allowed_origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ─── Serve frontend static files (single-origin deployment) ────────────────
+# Mount at /static so that API routes at / (health, predict, etc.) are NOT
+# intercepted.  A manual GET / returns index.html so the root URL works.
+import os as _os
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+_FE_DIR = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "frontend")
+if _os.path.isdir(_FE_DIR):
+    app.mount("/static", StaticFiles(directory=_FE_DIR, html=True), name="frontend")
+    print(f"Frontend static mounted at /static from {_FE_DIR}")
+
+    @app.get("/")
+    async def serve_index():
+        return FileResponse(_os.path.join(_FE_DIR, "index.html"))
 
 
 # ─── Exception Handlers ───────────────────────────────────────────────────
