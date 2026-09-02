@@ -22,6 +22,18 @@ Checkpoints are mirrored to GitHub Releases for faster, more reliable downloads:
 | `forward-stereo-ft.7z` | Forward (USPTO_STEREO) | 391 MB | `52d506a2ecee0c77cad7de03c692f653` | `https://github.com/milo0914/rxngraphormer-web/releases/download/v1.0-weights/forward-stereo-ft.7z` |
 | `retro-uspto50k.7z` | Retrosynthesis (USPTO_50k) | 197 MB | `1d993b40b8ff38def31788c1ced69de5` | `https://github.com/milo0914/rxngraphormer-web/releases/download/v1.0-weights/retro-uspto50k.7z` |
 
+### Local archive files (in `models/`)
+
+The following `.7z` archive files are present in the local `models/` directory.
+They are **git-ignored** (too large for direct commit) and are kept as cached
+copies of the release assets for offline deployment.
+
+| Local file | Release asset | Local size | Status |
+|---|---|---|---|
+| `models/seq-v2-USPTO_STEREO-20250509_070206_ft.7z` | `forward-stereo-ft.7z` | 374 MB | ✅ matches release |
+| `models/retro-uspto50k.7z` | `retro-uspto50k.7z` | 189 MB | ✅ matches release |
+| `models/seq-v2-USPTO_STEREO-20250423_044122_ft.7z` | — | 374 MB | ⚠️ older forward checkpoint (not in release); use `20250509` instead |
+
 **Download scripts** (`backend/download_models.py`, `download_models.sh`) use GitHub Releases as primary source with figshare fallback.
 
 ## Fine-tuned checkpoints
